@@ -271,34 +271,133 @@ window.addEventListener("beforeunload", () => {
   if (currentAudioUrl) URL.revokeObjectURL(currentAudioUrl);
 });
 
-/* LLAMADA TELEFÓNICA: abre el marcador del dispositivo */
+/* SIMULADOR DE LLAMADAS: todas las acciones son locales y ficticias */
 const phoneInput = $("phoneNumber");
-const callLink = $("callLink");
-function updatePhoneLink() {
-  const raw = phoneInput.value.trim();
-  // Permite dígitos, espacios, +, paréntesis y guiones; exige entre 7 y 15 dígitos.
-  const digits = raw.replace(/\\D/g, "");
-  const validCharacters = /^[0-9+()\\s-]+$/.test(raw);
-  const valid = validCharacters && digits.length >= 7 && digits.length <= 15;
-  callLink.setAttribute("aria-disabled", String(!valid));
-  callLink.classList.toggle("call-disabled", !valid);
-  callLink.href = valid ? `tel:${raw.replace(/[^0-9+]/g, "")}` : "#";
-  $("phoneStatus").textContent = valid
-    ? "Número listo. Al continuar, se abrirá la aplicación telefónica."
-    : "Escribe un número válido de entre 7 y 15 dígitos.";
+const callScreen = $("callScreen");
+let callMode = "idle";
+let callSeconds = 0;
+let callTimerInterval = null;
+let callMuted = false;
+let callSpeaker = false;
+
+function formatCallTime(total) {
+  const mins = String(Math.floor(total / 60)).padStart(2, "0");
+  const secs = String(total % 60).padStart(2, "0");
+  return `${mins}:${secs}`;
 }
-phoneInput.addEventListener("input", updatePhoneLink);
-callLink.addEventListener("click", event => {
-  if (callLink.getAttribute("aria-disabled") === "true") {
-    event.preventDefault();
-    $("phoneStatus").textContent = "Primero escribe un número telefónico válido.";
-    phoneInput.focus();
-    return;
-  }
-  $("phoneStatus").textContent = "Se está abriendo la aplicación telefónica. Revisa el número y confirma la llamada.";
+function stopCallTimer() {
+  if (callTimerInterval) window.clearInterval(callTimerInterval);
+  callTimerInterval = null;
+}
+function startCallTimer() {
+  stopCallTimer();
+  callSeconds = 0;
+  $("callDuration").textContent = "00:00";
+  callTimerInterval = window.setInterval(() => {
+    callSeconds += 1;
+    $("callDuration").textContent = formatCallTime(callSeconds);
+  }, 1000);
+}
+function resetCallScreen(message = "Simulación finalizada.") {
+  stopCallTimer();
+  callMode = "idle";
+  callScreen.hidden = true;
+  $("phoneStatus").textContent = message;
+  $("activeCallKeypad").hidden = true;
+  $("activeCallControls").hidden = true;
+  $("incomingCallActions").hidden = false;
+  $("ringingCallActions").hidden = true;
+  $("endCallActions").hidden = true;
+  $("muteCallBtn").classList.remove("active");
+  $("speakerCallBtn").classList.remove("active");
+  callMuted = false;
+  callSpeaker = false;
+}
+function showCallScreen(name, number, status) {
+  callScreen.hidden = false;
+  $("callContactName").textContent = name;
+  $("callContactNumber").textContent = number;
+  $("callScreenStatus").textContent = status;
+  $("callDuration").textContent = "00:00";
+}
+function beginActiveCall() {
+  callMode = "active";
+  $("callStateLabel").textContent = "En llamada · Simulación";
+  $("callScreenStatus").textContent = "Llamada conectada (modo demostración)";
+  $("incomingCallActions").hidden = true;
+  $("ringingCallActions").hidden = true;
+  $("endCallActions").hidden = false;
+  $("activeCallControls").hidden = false;
+  startCallTimer();
+}
+$("callKeypad").addEventListener("click", event => {
+  const button = event.target.closest("button");
+  if (!button) return;
+  if (button.dataset.digit) phoneInput.value += button.dataset.digit;
+  if (button.dataset.action === "delete") phoneInput.value = phoneInput.value.slice(0, -1);
+  phoneInput.focus();
 });
 $("clearPhoneBtn").addEventListener("click", () => {
   phoneInput.value = "";
-  updatePhoneLink();
+  $("phoneStatus").textContent = "Número borrado. Puedes escribir otro o simular una llamada entrante.";
   phoneInput.focus();
+});
+$("startOutgoingCallBtn").addEventListener("click", () => {
+  const raw = phoneInput.value.trim();
+  const digits = raw.replace(/\D/g, "");
+  if (!/^[0-9+*#()\s-]+$/.test(raw) || digits.length < 3 || digits.length > 15) {
+    $("phoneStatus").textContent = "Escribe al menos 3 dígitos para iniciar la demostración.";
+    phoneInput.focus();
+    return;
+  }
+  callMode = "outgoing";
+  showCallScreen("Llamando…", raw, "Marcando número simulado");
+  $("callStateLabel").textContent = "Llamada saliente";
+  $("incomingCallActions").hidden = true;
+  $("ringingCallActions").hidden = false;
+  $("endCallActions").hidden = true;
+  $("activeCallControls").hidden = true;
+  $("phoneStatus").textContent = "Llamada saliente simulada. Pulsa Conectar para continuar.";
+});
+$("simulateIncomingBtn").addEventListener("click", () => {
+  callMode = "incoming";
+  showCallScreen("Contacto de prueba", "Número desconocido · 000-000-0000", "Llamada entrante simulada");
+  $("callStateLabel").textContent = "Llamada entrante";
+  $("incomingCallActions").hidden = false;
+  $("ringingCallActions").hidden = true;
+  $("endCallActions").hidden = true;
+  $("activeCallControls").hidden = true;
+  $("phoneStatus").textContent = "Tienes una llamada entrante de demostración.";
+});
+$("acceptCallBtn").addEventListener("click", () => {
+  if (callMode !== "incoming") return;
+  beginActiveCall();
+  $("phoneStatus").textContent = "Aceptaste la llamada simulada.";
+});
+$("declineCallBtn").addEventListener("click", () => resetCallScreen("Llamada simulada rechazada."));
+$("connectOutgoingCallBtn").addEventListener("click", () => {
+  if (callMode !== "outgoing") return;
+  beginActiveCall();
+  $("callContactName").textContent = "Contacto marcado";
+  $("phoneStatus").textContent = "La llamada de demostración está conectada.";
+});
+$("cancelOutgoingCallBtn").addEventListener("click", () => resetCallScreen("Llamada saliente cancelada."));
+$("endCallBtn").addEventListener("click", () => resetCallScreen("Finalizaste la llamada simulada."));
+$("muteCallBtn").addEventListener("click", () => {
+  callMuted = !callMuted;
+  $("muteCallBtn").classList.toggle("active", callMuted);
+  $("muteCallBtn").querySelector("small").textContent = callMuted ? "Activar micro" : "Silenciar";
+  $("callScreenStatus").textContent = callMuted ? "Micrófono silenciado (simulado)" : "Micrófono activado (simulado)";
+});
+$("speakerCallBtn").addEventListener("click", () => {
+  callSpeaker = !callSpeaker;
+  $("speakerCallBtn").classList.toggle("active", callSpeaker);
+  $("callScreenStatus").textContent = callSpeaker ? "Altavoz activado (simulado)" : "Altavoz desactivado (simulado)";
+});
+$("keypadCallBtn").addEventListener("click", () => {
+  $("activeCallKeypad").hidden = !$("activeCallKeypad").hidden;
+});
+$("activeCallKeypad").addEventListener("click", event => {
+  const button = event.target.closest("button[data-tone]");
+  if (button) $("callScreenStatus").textContent = `Tono ${button.dataset.tone} (simulado)`;
 });

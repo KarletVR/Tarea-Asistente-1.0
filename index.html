@@ -138,19 +138,73 @@
         </section>
 
         <section class="page" id="page-llamada">
-          <div class="page-intro"><span class="eyebrow">MÓDULO 06 · ENLACE TELEFÓNICO</span><h1>Llamada <span>telefónica</span></h1><p>Escribe un número y abre la aplicación de llamadas de tu dispositivo para comunicarte.</p></div>
-          <div class="workspace-card call-workspace">
-            <div class="call-visual"><span>☎</span></div>
-            <label for="phoneNumber">Número telefónico</label>
-            <input class="phone-input" type="tel" id="phoneNumber" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="Ej. 2221234567" aria-describedby="phoneHelp">
-            <p class="muted" id="phoneHelp">Puedes escribir el número con código de país, espacios o guiones.</p>
-            <div class="button-row centered-row">
-              <a class="btn-primary call-button" id="callLink" href="#" aria-disabled="true">☎ Preparar llamada</a>
-              <button class="btn-secondary" id="clearPhoneBtn" type="button">Limpiar</button>
-            </div>
-            <p class="feedback" id="phoneStatus" aria-live="polite">Escribe un número válido para continuar.</p>
+          <div class="page-intro">
+            <span class="eyebrow">MÓDULO 06 · SIMULADOR INTERACTIVO</span>
+            <h1>Llamada <span>telefónica</span></h1>
+            <p>Practica cómo realizar y recibir llamadas desde una interfaz simulada. No se hacen llamadas reales.</p>
           </div>
-          <div class="info-strip"><strong>¿Cómo funciona?</strong><p>Este módulo utiliza un enlace telefónico (tel:). En un celular compatible abrirá la aplicación de teléfono con el número preparado. Debes revisar el número y confirmar la llamada desde tu dispositivo. La PWA no realiza llamadas por sí sola ni sustituye el servicio telefónico.</p></div>
+
+          <div class="call-simulator">
+            <div class="call-dialer workspace-card">
+              <div class="call-simulator-heading">
+                <span class="call-app-icon">☎</span>
+                <div><strong>Teléfono virtual</strong><small>Simulación dentro de Asistente 1.0</small></div>
+              </div>
+              <label for="phoneNumber">Número o contacto</label>
+              <input class="phone-input" type="tel" id="phoneNumber" inputmode="tel" maxlength="20" placeholder="Escribe un número">
+              <div class="call-keypad" id="callKeypad" aria-label="Teclado numérico">
+                <button type="button" data-digit="1">1<span></span></button>
+                <button type="button" data-digit="2">2<span>ABC</span></button>
+                <button type="button" data-digit="3">3<span>DEF</span></button>
+                <button type="button" data-digit="4">4<span>GHI</span></button>
+                <button type="button" data-digit="5">5<span>JKL</span></button>
+                <button type="button" data-digit="6">6<span>MNO</span></button>
+                <button type="button" data-digit="7">7<span>PQRS</span></button>
+                <button type="button" data-digit="8">8<span>TUV</span></button>
+                <button type="button" data-digit="9">9<span>WXYZ</span></button>
+                <button type="button" data-digit="*">*</button>
+                <button type="button" data-digit="0">0<span>+</span></button>
+                <button type="button" data-action="delete" aria-label="Borrar último dígito">⌫</button>
+              </div>
+              <div class="button-row call-main-actions">
+                <button class="btn-primary" id="startOutgoingCallBtn" type="button">☎ Iniciar llamada simulada</button>
+                <button class="btn-secondary" id="clearPhoneBtn" type="button">Limpiar</button>
+              </div>
+              <button class="incoming-demo-btn" id="simulateIncomingBtn" type="button">↙ Simular llamada entrante</button>
+              <p class="feedback" id="phoneStatus" aria-live="polite">Escribe un número o prueba una llamada entrante.</p>
+            </div>
+
+            <div class="call-screen workspace-card" id="callScreen" hidden aria-live="polite">
+              <div class="call-screen-top"><span class="call-live-dot"></span><span id="callStateLabel">Llamada simulada</span><span id="callDuration">00:00</span></div>
+              <div class="call-avatar" id="callAvatar">☎</div>
+              <h2 id="callContactName">Contacto de prueba</h2>
+              <p class="call-number" id="callContactNumber">Número simulado</p>
+              <p class="call-screen-status" id="callScreenStatus">Llamada entrante...</p>
+              <div class="call-active-controls" id="activeCallControls" hidden>
+                <button type="button" class="call-tool-control" id="muteCallBtn"><span>🎙</span><small>Silenciar</small></button>
+                <button type="button" class="call-tool-control" id="speakerCallBtn"><span>🔊</span><small>Altavoz</small></button>
+                <button type="button" class="call-tool-control" id="keypadCallBtn"><span>▦</span><small>Teclado</small></button>
+              </div>
+              <div class="call-incoming-actions" id="incomingCallActions">
+                <button type="button" class="call-round-btn decline" id="declineCallBtn"><span>✕</span><small>Rechazar</small></button>
+                <button type="button" class="call-round-btn accept" id="acceptCallBtn"><span>☎</span><small>Aceptar</small></button>
+              </div>
+              <div class="call-ringing-actions" id="ringingCallActions" hidden>
+                <button type="button" class="call-round-btn accept" id="connectOutgoingCallBtn"><span>☎</span><small>Conectar</small></button>
+                <button type="button" class="call-round-btn decline" id="cancelOutgoingCallBtn"><span>✕</span><small>Cancelar</small></button>
+              </div>
+              <div class="call-end-actions" id="endCallActions" hidden>
+                <button type="button" class="call-round-btn decline" id="endCallBtn"><span>☎</span><small>Finalizar</small></button>
+              </div>
+              <div class="call-inline-keypad" id="activeCallKeypad" hidden>
+                <button type="button" data-tone="1">1</button><button type="button" data-tone="2">2</button><button type="button" data-tone="3">3</button>
+                <button type="button" data-tone="4">4</button><button type="button" data-tone="5">5</button><button type="button" data-tone="6">6</button>
+                <button type="button" data-tone="7">7</button><button type="button" data-tone="8">8</button><button type="button" data-tone="9">9</button>
+                <button type="button" data-tone="*">*</button><button type="button" data-tone="0">0</button><button type="button" data-tone="#">#</button>
+              </div>
+            </div>
+          </div>
+          <div class="info-strip"><strong>Acerca de la simulación</strong><p>Este módulo representa una llamada mediante cambios de pantalla y controles interactivos. Aceptar, rechazar, silenciar, activar altavoz y finalizar son acciones de demostración: no se conecta con la red telefónica ni utiliza el micrófono.</p></div>
         </section>
 
         <section class="page" id="page-acerca">

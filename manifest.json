@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Tarea Asistente 1.0",
   "short_name": "Asistente 1.0",
-  "description": "Herramientas de texto a voz, audio, QR, cámara, reconocimiento de voz y llamadas telefónicas.",
+  "description": "Herramientas de texto a voz, audio, QR, cámara, reconocimiento de voz y simulación de llamadas.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

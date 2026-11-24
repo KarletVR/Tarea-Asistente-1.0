@@ -16,3 +16,45 @@
 .call-workspace .centered-row{margin:22px 0 12px}
 .call-button{margin:0}
 .call-disabled{opacity:.45;cursor:not-allowed;pointer-events:auto}
+
+
+/* SIMULADOR DE LLAMADAS */
+.call-simulator{display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,1fr);gap:18px;align-items:start}
+.call-dialer{max-width:none;margin:0}
+.call-simulator-heading{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.call-app-icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#a76af6,#6330a8);display:grid;place-items:center;color:white;font-size:23px}
+.call-simulator-heading strong,.call-simulator-heading small{display:block}
+.call-simulator-heading strong{font:600 16px 'Space Grotesk'}
+.call-simulator-heading small{color:var(--muted);font-size:10px;margin-top:4px}
+.call-dialer>label{display:block;color:#e6dced;font-size:12px;font-weight:600;margin-bottom:9px}
+.phone-input{width:100%;border:1px solid #493958;background:#120f18;color:#fff;border-radius:11px;padding:14px;font:500 18px 'Space Grotesk';letter-spacing:1px;text-align:center;outline:none}
+.phone-input:focus{border-color:#a16be0;box-shadow:0 0 0 3px #a16be022}
+.call-keypad{max-width:330px;margin:20px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.call-keypad button,.call-inline-keypad button{min-height:57px;border:1px solid #3c3048;border-radius:13px;background:#211a2b;color:#f5f0fb;font:600 20px 'Space Grotesk';cursor:pointer}
+.call-keypad button:hover,.call-inline-keypad button:hover{background:#38264c;border-color:#8651b7}
+.call-keypad button span{display:block;color:#9f8bad;font:9px 'DM Sans';letter-spacing:1.5px;margin-top:2px}
+.call-main-actions{justify-content:center}
+.call-main-actions button{flex:1}
+.incoming-demo-btn{width:100%;padding:12px;border:1px solid #4a3262;border-radius:10px;background:#21182c;color:#d9baff;font:600 12px 'DM Sans';cursor:pointer;margin-top:8px}
+.incoming-demo-btn:hover{background:#30203f}
+.call-screen{max-width:none;min-height:560px;background:radial-gradient(ellipse at 50% 28%,#39264f 0,#1a1521 62%);display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.call-screen[hidden],.call-active-controls[hidden],.call-incoming-actions[hidden],.call-ringing-actions[hidden],.call-end-actions[hidden],.call-inline-keypad[hidden]{display:none}
+.call-screen-top{width:100%;display:flex;justify-content:space-between;align-items:center;color:#bba9ca;font-size:10px;letter-spacing:.7px}
+.call-live-dot{width:8px;height:8px;border-radius:50%;background:#65d6a2;box-shadow:0 0 10px #65d6a2}
+.call-avatar{width:105px;height:105px;border-radius:50%;margin:54px auto 18px;background:linear-gradient(145deg,#a76af6,#6330a8);box-shadow:0 0 0 12px #8d52c522;display:grid;place-items:center;color:white;font-size:43px}
+.call-screen h2{font:600 23px 'Space Grotesk';margin:0 0 7px}
+.call-number{color:#b9adc5;font-size:12px;margin:0}
+.call-screen-status{color:#d2b4f7;font-size:12px;margin:18px 0 28px;min-height:17px}
+.call-active-controls,.call-incoming-actions,.call-ringing-actions,.call-end-actions{display:flex;justify-content:center;align-items:center;gap:25px;margin-top:auto;padding:18px 0 8px}
+.call-tool-control{border:0;background:transparent;color:#eee5f6;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
+.call-tool-control span{width:48px;height:48px;border-radius:50%;background:#3a3045;display:grid;place-items:center;font-size:20px}
+.call-tool-control.active span{background:#7a4ab0}
+.call-tool-control small,.call-round-btn small{font-size:10px;color:#c4b5d1}
+.call-round-btn{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
+.call-round-btn span{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:white;font-size:25px}
+.call-round-btn.accept span{background:#26965d}
+.call-round-btn.decline span{background:#c63d50}
+.call-inline-keypad{width:100%;max-width:250px;display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:18px}
+.call-inline-keypad button{min-height:40px;font-size:15px}
+@media(max-width:900px){.call-simulator{grid-template-columns:1fr}.call-screen{min-height:500px}}
+
