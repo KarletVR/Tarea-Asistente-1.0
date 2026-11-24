@@ -279,6 +279,31 @@ let callSeconds = 0;
 let callTimerInterval = null;
 let callMuted = false;
 let callSpeaker = false;
+let callVoiceEnabled = true;
+let lastCallVoiceMessage = "Hola, estás utilizando la simulación de llamadas de Asistente 1.0.";
+
+function speakCallMessage(message) {
+  lastCallVoiceMessage = message;
+  if (!callVoiceEnabled) {
+    $("callVoiceStatus").textContent = "La voz está desactivada. Puedes activarla para escuchar los mensajes.";
+    return;
+  }
+  if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+    $("callVoiceStatus").textContent = "Tu navegador no admite la reproducción de voz.";
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(message);
+  utterance.lang = "es-MX";
+  utterance.rate = 0.95;
+  utterance.pitch = 1;
+  const spanishVoice = window.speechSynthesis.getVoices().find(voice => /^es(-|_)/i.test(voice.lang));
+  if (spanishVoice) utterance.voice = spanishVoice;
+  utterance.onstart = () => { $("callVoiceStatus").textContent = "Reproduciendo mensaje de voz…"; };
+  utterance.onend = () => { $("callVoiceStatus").textContent = "Mensaje reproducido correctamente."; };
+  utterance.onerror = () => { $("callVoiceStatus").textContent = "No se pudo reproducir la voz. Comprueba el volumen y el navegador."; };
+  window.speechSynthesis.speak(utterance);
+}
 
 function formatCallTime(total) {
   const mins = String(Math.floor(total / 60)).padStart(2, "0");
@@ -312,6 +337,8 @@ function resetCallScreen(message = "Simulación finalizada.") {
   $("speakerCallBtn").classList.remove("active");
   callMuted = false;
   callSpeaker = false;
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  $("callVoiceStatus").textContent = "La simulación terminó.";
 }
 function showCallScreen(name, number, status) {
   callScreen.hidden = false;
@@ -329,6 +356,7 @@ function beginActiveCall() {
   $("endCallActions").hidden = false;
   $("activeCallControls").hidden = false;
   startCallTimer();
+  speakCallMessage("Llamada conectada. Hola, estás hablando con la simulación de Asistente 1.0. Esta llamada es de prueba y no utiliza la red telefónica.");
 }
 $("callKeypad").addEventListener("click", event => {
   const button = event.target.closest("button");
@@ -358,6 +386,7 @@ $("startOutgoingCallBtn").addEventListener("click", () => {
   $("endCallActions").hidden = true;
   $("activeCallControls").hidden = true;
   $("phoneStatus").textContent = "Llamada saliente simulada. Pulsa Conectar para continuar.";
+  speakCallMessage("Hola. Estás realizando una llamada de prueba con Asistente 1.0. Pulsa conectar para simular que la otra persona responde.");
 });
 $("simulateIncomingBtn").addEventListener("click", () => {
   callMode = "incoming";
@@ -368,21 +397,22 @@ $("simulateIncomingBtn").addEventListener("click", () => {
   $("endCallActions").hidden = true;
   $("activeCallControls").hidden = true;
   $("phoneStatus").textContent = "Tienes una llamada entrante de demostración.";
+  speakCallMessage("Hola. Tienes una llamada entrante simulada. Puedes aceptarla o rechazarla desde la pantalla.");
 });
 $("acceptCallBtn").addEventListener("click", () => {
   if (callMode !== "incoming") return;
   beginActiveCall();
   $("phoneStatus").textContent = "Aceptaste la llamada simulada.";
 });
-$("declineCallBtn").addEventListener("click", () => resetCallScreen("Llamada simulada rechazada."));
+$("declineCallBtn").addEventListener("click", () => { resetCallScreen("Llamada simulada rechazada."); speakCallMessage("Has rechazado la llamada simulada. La demostración ha terminado."); });
 $("connectOutgoingCallBtn").addEventListener("click", () => {
   if (callMode !== "outgoing") return;
   beginActiveCall();
   $("callContactName").textContent = "Contacto marcado";
   $("phoneStatus").textContent = "La llamada de demostración está conectada.";
 });
-$("cancelOutgoingCallBtn").addEventListener("click", () => resetCallScreen("Llamada saliente cancelada."));
-$("endCallBtn").addEventListener("click", () => resetCallScreen("Finalizaste la llamada simulada."));
+$("cancelOutgoingCallBtn").addEventListener("click", () => { resetCallScreen("Llamada saliente cancelada."); speakCallMessage("La llamada saliente de prueba ha sido cancelada."); });
+$("endCallBtn").addEventListener("click", () => { resetCallScreen("Finalizaste la llamada simulada."); speakCallMessage("La llamada ha finalizado. Gracias por utilizar Asistente 1.0."); });
 $("muteCallBtn").addEventListener("click", () => {
   callMuted = !callMuted;
   $("muteCallBtn").classList.toggle("active", callMuted);
@@ -396,6 +426,18 @@ $("speakerCallBtn").addEventListener("click", () => {
 });
 $("keypadCallBtn").addEventListener("click", () => {
   $("activeCallKeypad").hidden = !$("activeCallKeypad").hidden;
+});
+$("repeatCallVoiceBtn").addEventListener("click", () => speakCallMessage(lastCallVoiceMessage));
+$("toggleCallVoiceBtn").addEventListener("click", () => {
+  callVoiceEnabled = !callVoiceEnabled;
+  $("toggleCallVoiceBtn").textContent = callVoiceEnabled ? "Voz: activada" : "Voz: desactivada";
+  $("toggleCallVoiceBtn").setAttribute("aria-pressed", String(callVoiceEnabled));
+  if (!callVoiceEnabled) {
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    $("callVoiceStatus").textContent = "La voz está desactivada.";
+  } else {
+    speakCallMessage("La voz del simulador está activada.");
+  }
 });
 $("activeCallKeypad").addEventListener("click", event => {
   const button = event.target.closest("button[data-tone]");

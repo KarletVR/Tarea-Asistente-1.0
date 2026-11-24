@@ -47,7 +47,7 @@
             <div class="hero-copy">
               <span class="eyebrow"><i></i> TU ESPACIO DIGITAL</span>
               <h1>Bienvenida a<br><span>Asistente 1.0</span></h1>
-              <p>Un conjunto de herramientas prácticas para convertir texto en voz, reproducir audio, crear códigos QR, utilizar la cámara, reconocer palabras habladas e iniciar llamadas telefónicas.</p>
+              <p>Un conjunto de herramientas prácticas para convertir texto en voz, reproducir audio, crear códigos QR, utilizar la cámara, reconocer palabras habladas y simular llamadas telefónicas con mensajes de voz.</p>
               <a class="primary-btn" href="#herramientas">Explorar herramientas <span>→</span></a>
             </div>
             <div class="hero-art" aria-hidden="true">
@@ -63,7 +63,7 @@
             <a class="tool-card" href="#qr"><span class="tool-icon">▦</span><span class="tool-number">03 / QR</span><h3>Generador QR</h3><p>Convierte un texto o enlace en un código QR descargable.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
             <a class="tool-card" href="#camara"><span class="tool-icon">▣</span><span class="tool-number">04 / CÁMARA</span><h3>Cámara</h3><p>Visualiza la cámara y captura fotografías desde el dispositivo.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
             <a class="tool-card" href="#reconocimiento"><span class="tool-icon">🎙</span><span class="tool-number">05 / VOZ A TEXTO</span><h3>Reconocimiento de voz</h3><p>Habla y observa cómo el navegador convierte tu voz en texto.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
-            <a class="tool-card" href="#llamada"><span class="tool-icon">☎</span><span class="tool-number">06 / COMUNICACIÓN</span><h3>Llamada telefónica</h3><p>Prepara una llamada utilizando la aplicación telefónica de tu dispositivo.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
+            <a class="tool-card" href="#llamada"><span class="tool-icon">☎</span><span class="tool-number">06 / COMUNICACIÓN</span><h3>Llamada telefónica</h3><p>Simula llamadas entrantes y salientes con respuestas habladas.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
           </div>
           <div class="notice"><span>✦</span><div><strong>Consejo</strong><p>Para utilizar la cámara y el micrófono, abre esta PWA desde HTTPS o desde localhost y concede los permisos solicitados.</p></div></div>
         </section>
@@ -180,6 +180,11 @@
               <h2 id="callContactName">Contacto de prueba</h2>
               <p class="call-number" id="callContactNumber">Número simulado</p>
               <p class="call-screen-status" id="callScreenStatus">Llamada entrante...</p>
+              <div class="call-voice-panel" aria-label="Controles de voz de la simulación">
+                <button type="button" class="btn-secondary" id="repeatCallVoiceBtn">🔊 Repetir mensaje</button>
+                <button type="button" class="btn-secondary" id="toggleCallVoiceBtn" aria-pressed="true">Voz: activada</button>
+              </div>
+              <p class="call-voice-status" id="callVoiceStatus" aria-live="polite">La voz del asistente está activada.</p>
               <div class="call-active-controls" id="activeCallControls" hidden>
                 <button type="button" class="call-tool-control" id="muteCallBtn"><span>🎙</span><small>Silenciar</small></button>
                 <button type="button" class="call-tool-control" id="speakerCallBtn"><span>🔊</span><small>Altavoz</small></button>
@@ -204,7 +209,7 @@
               </div>
             </div>
           </div>
-          <div class="info-strip"><strong>Acerca de la simulación</strong><p>Este módulo representa una llamada mediante cambios de pantalla y controles interactivos. Aceptar, rechazar, silenciar, activar altavoz y finalizar son acciones de demostración: no se conecta con la red telefónica ni utiliza el micrófono.</p></div>
+          <div class="info-strip"><strong>Acerca de la simulación</strong><p>Este módulo representa una llamada mediante cambios de pantalla, controles interactivos y mensajes hablados generados con SpeechSynthesis. La voz se reproduce desde el dispositivo. No se conecta con la red telefónica ni utiliza el micrófono.</p></div>
         </section>
 
         <section class="page" id="page-acerca">

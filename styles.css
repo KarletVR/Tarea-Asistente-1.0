@@ -58,3 +58,5 @@
 .call-inline-keypad button{min-height:40px;font-size:15px}
 @media(max-width:900px){.call-simulator{grid-template-columns:1fr}.call-screen{min-height:500px}}
 
+
+.call-voice-panel{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin:0 0 8px}.call-voice-panel button{font-size:11px;padding:10px 13px}.call-voice-status{font-size:10px;color:#bca8cf;min-height:16px;margin:4px 0 0;text-align:center}
