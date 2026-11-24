@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#171020">
+  <meta name="description" content="Tarea Asistente 1.0: herramientas de voz, audio, QR y cámara.">
+  <title>Tarea | Asistente 1.0</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <span class="brand-mark">A<span>1</span></span>
+        <span><strong>TAREA</strong><small>ASISTENTE 1.0</small></span>
+      </a>
+      <div class="nav-caption">MENÚ PRINCIPAL</div>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="#inicio" class="nav-link active" data-page="inicio"><span>⌂</span> Inicio</a>
+        <a href="#texto-voz" class="nav-link" data-page="texto-voz"><span>◖</span> Texto a voz</a>
+        <a href="#sonido" class="nav-link" data-page="sonido"><span>♫</span> Reproducción de sonido</a>
+        <a href="#qr" class="nav-link" data-page="qr"><span>▦</span> Generador QR</a>
+        <a href="#camara" class="nav-link" data-page="camara"><span>▣</span> Cámara</a>
+        <a href="#reconocimiento" class="nav-link" data-page="reconocimiento"><span>🎙</span> Reconocimiento de voz</a>
+        <a href="#acerca" class="nav-link" data-page="acerca"><span>ⓘ</span> Acerca del proyecto</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="status-card"><span class="status-dot"></span><span><strong>Asistente listo</strong><small>Herramientas disponibles</small></span></div>
+        <small class="sidebar-version">TAREA · VERSIÓN 1.0</small>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="pageName">Inicio</strong></div>
+        <div class="topbar-right"><span class="online-indicator"></span><span id="connectionLabel">Conectado</span><span class="avatar">A1</span></div>
+      </header>
+
+      <div class="content">
+        <section class="page active" id="page-inicio">
+          <div class="hero">
+            <div class="hero-copy">
+              <span class="eyebrow"><i></i> TU ESPACIO DIGITAL</span>
+              <h1>Bienvenida a<br><span>Asistente 1.0</span></h1>
+              <p>Un conjunto de herramientas prácticas para convertir texto en voz, reproducir audio, crear códigos QR, utilizar la cámara y reconocer palabras habladas.</p>
+              <a class="primary-btn" href="#herramientas">Explorar herramientas <span>→</span></a>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="orb orb-one"></div><div class="orb orb-two"></div>
+              <div class="core"><span>A</span><small>1.0</small></div>
+              <div class="orbit-label label-one">VOICE</div><div class="orbit-label label-two">MEDIA</div><div class="orbit-label label-three">SMART</div>
+            </div>
+          </div>
+          <div class="section-heading" id="herramientas"><div><span class="eyebrow">CENTRO DE HERRAMIENTAS</span><h2>¿Qué necesitas hacer?</h2></div><span class="muted">5 módulos disponibles</span></div>
+          <div class="tool-grid">
+            <a class="tool-card" href="#texto-voz"><span class="tool-icon">◖</span><span class="tool-number">01 / VOZ</span><h3>Texto a voz</h3><p>Escucha cualquier texto con la voz disponible en tu navegador.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
+            <a class="tool-card" href="#sonido"><span class="tool-icon">♫</span><span class="tool-number">02 / AUDIO</span><h3>Reproducción de sonido</h3><p>Selecciona un archivo de audio y controla su reproducción.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
+            <a class="tool-card" href="#qr"><span class="tool-icon">▦</span><span class="tool-number">03 / QR</span><h3>Generador QR</h3><p>Convierte un texto o enlace en un código QR descargable.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
+            <a class="tool-card" href="#camara"><span class="tool-icon">▣</span><span class="tool-number">04 / CÁMARA</span><h3>Cámara</h3><p>Visualiza la cámara y captura fotografías desde el dispositivo.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
+            <a class="tool-card" href="#reconocimiento"><span class="tool-icon">🎙</span><span class="tool-number">05 / VOZ A TEXTO</span><h3>Reconocimiento de voz</h3><p>Habla y observa cómo el navegador convierte tu voz en texto.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
+          </div>
+          <div class="notice"><span>✦</span><div><strong>Consejo</strong><p>Para utilizar la cámara y el micrófono, abre esta PWA desde HTTPS o desde localhost y concede los permisos solicitados.</p></div></div>
+        </section>
+
+        <section class="page" id="page-texto-voz">
+          <div class="page-intro"><span class="eyebrow">MÓDULO 01 · WEB SPEECH API</span><h1>Texto a <span>voz</span></h1><p>Escribe un mensaje y deja que el navegador lo lea en voz alta.</p></div>
+          <div class="workspace-card">
+            <label for="speechText">Texto que deseas escuchar</label>
+            <textarea id="speechText" rows="7" placeholder="Escribe aquí el texto que quieres convertir en voz...">Hola, bienvenida a Tarea Asistente 1.0. Esta herramienta convierte texto escrito en voz.</textarea>
+            <div class="form-row">
+              <div class="field"><label for="voiceSelect">Voz disponible</label><select id="voiceSelect"><option value="">Voz predeterminada</option></select></div>
+              <div class="field"><label for="rate">Velocidad <b id="rateValue">1.0×</b></label><input id="rate" type="range" min="0.5" max="2" step="0.1" value="1"></div>
+              <div class="field"><label for="pitch">Tono <b id="pitchValue">1.0</b></label><input id="pitch" type="range" min="0" max="2" step="0.1" value="1"></div>
+            </div>
+            <div class="button-row"><button class="btn-primary" id="speakBtn">▶ Reproducir voz</button><button class="btn-secondary" id="pauseSpeechBtn">Ⅱ Pausar</button><button class="btn-secondary" id="stopSpeechBtn">■ Detener</button></div>
+            <p class="feedback" id="speechStatus" aria-live="polite">Listo para convertir texto a voz.</p>
+          </div>
+          <div class="info-strip"><strong>¿Cómo funciona?</strong><p>Utiliza SpeechSynthesis, una interfaz de la Web Speech API que permite al navegador sintetizar voz. Las voces dependen del dispositivo y del navegador.</p></div>
+        </section>
+
+        <section class="page" id="page-sonido">
+          <div class="page-intro"><span class="eyebrow">MÓDULO 02 · AUDIO HTML5</span><h1>Reproducción de <span>sonido</span></h1><p>Selecciona un archivo de audio de tu dispositivo para reproducirlo.</p></div>
+          <div class="workspace-card">
+            <label class="upload-zone" for="audioFile"><span class="upload-symbol">♫</span><strong>Selecciona un archivo de audio</strong><small>Formatos compatibles según el navegador: MP3, WAV, OGG y otros.</small><span class="btn-secondary">Elegir archivo</span><input type="file" id="audioFile" accept="audio/*"></label>
+            <div class="audio-panel">
+              <div class="audio-cover">♫</div><div class="audio-details"><strong id="audioName">Ningún archivo seleccionado</strong><small id="audioDuration">Selecciona un audio para comenzar</small></div>
+              <audio id="audioPlayer" controls></audio>
+            </div>
+            <div class="button-row"><button class="btn-primary" id="playAudioBtn">▶ Reproducir</button><button class="btn-secondary" id="pauseAudioBtn">Ⅱ Pausar</button><button class="btn-secondary" id="stopAudioBtn">■ Detener</button></div>
+            <div class="field volume-field"><label for="volume">Volumen <b id="volumeValue">100%</b></label><input id="volume" type="range" min="0" max="1" step="0.01" value="1"></div>
+            <p class="feedback" id="audioStatus" aria-live="polite">Esperando un archivo de audio.</p>
+          </div>
+          <div class="info-strip"><strong>Privacidad</strong><p>El archivo seleccionado se reproduce localmente en tu navegador; esta aplicación no lo sube a un servidor.</p></div>
+        </section>
+
+        <section class="page" id="page-qr">
+          <div class="page-intro"><span class="eyebrow">MÓDULO 03 · CÓDIGOS QR</span><h1>Generador <span>QR</span></h1><p>Genera un código que otras personas podrán escanear con un dispositivo compatible.</p></div>
+          <div class="qr-layout">
+            <div class="workspace-card">
+              <label for="qrText">Texto o enlace</label><textarea id="qrText" rows="5" placeholder="Escribe un enlace o mensaje..."></textarea>
+              <div class="field"><label for="qrSize">Tamaño del código</label><select id="qrSize"><option value="180">Pequeño</option><option value="240" selected>Mediano</option><option value="320">Grande</option></select></div>
+              <button class="btn-primary full-btn" id="generateQrBtn">▦ Generar código QR</button>
+              <p class="feedback" id="qrStatus" aria-live="polite">Escribe un contenido para generar tu QR.</p>
+            </div>
+            <div class="qr-result workspace-card"><span class="eyebrow">VISTA PREVIA</span><div class="qr-placeholder" id="qrPlaceholder"><span>▦</span><small>Tu código QR aparecerá aquí</small></div><img id="qrImage" alt="Código QR generado" hidden><button class="btn-secondary full-btn" id="downloadQrBtn" disabled>↓ Descargar código QR</button></div>
+          </div>
+          <div class="info-strip"><strong>Nota de funcionamiento</strong><p>La generación utiliza un servicio web externo, por lo que este módulo requiere conexión a Internet. No introduzcas información privada o confidencial.</p></div>
+        </section>
+
+        <section class="page" id="page-camara">
+          <div class="page-intro"><span class="eyebrow">MÓDULO 04 · MEDIADEVICES API</span><h1>Tu <span>cámara</span></h1><p>Activa la cámara, visualiza la imagen en tiempo real y captura una fotografía.</p></div>
+          <div class="workspace-card">
+            <div class="camera-frame"><video id="cameraVideo" autoplay playsinline muted></video><div class="camera-placeholder" id="cameraPlaceholder"><span>▣</span><strong>La vista de cámara aparecerá aquí</strong><small>Presiona “Activar cámara” y concede el permiso.</small></div></div>
+            <div class="button-row"><button class="btn-primary" id="startCameraBtn">▣ Activar cámara</button><button class="btn-secondary" id="captureBtn" disabled>◎ Tomar fotografía</button><button class="btn-secondary" id="stopCameraBtn" disabled>■ Detener cámara</button></div>
+            <p class="feedback" id="cameraStatus" aria-live="polite">La cámara está apagada.</p>
+            <div class="capture-result" id="captureResult" hidden><div><strong>Fotografía capturada</strong><small>La imagen se generó en este dispositivo.</small></div><canvas id="photoCanvas"></canvas><button class="btn-secondary" id="downloadPhotoBtn">↓ Descargar fotografía</button></div>
+          </div>
+          <div class="info-strip"><strong>Permisos y seguridad</strong><p>El navegador solicitará permiso antes de activar la cámara. La vista se procesa localmente y se detiene al salir de este módulo.</p></div>
+        </section>
+
+        <section class="page" id="page-reconocimiento">
+          <div class="page-intro"><span class="eyebrow">MÓDULO 05 · SPEECH RECOGNITION</span><h1>Reconocimiento de <span>voz</span></h1><p>Habla a través del micrófono y convierte tus palabras en texto.</p></div>
+          <div class="workspace-card voice-workspace">
+            <div class="mic-visual" id="micVisual"><span>🎙</span></div>
+            <h2 id="recognitionState">¿Lista para hablar?</h2><p class="muted centered">Presiona el botón y permite el acceso al micrófono.</p>
+            <div class="button-row centered-row"><button class="btn-primary" id="startRecognitionBtn">● Iniciar reconocimiento</button><button class="btn-secondary" id="stopRecognitionBtn" disabled>■ Detener</button></div>
+            <div class="field"><label for="recognizedText">Texto reconocido</label><textarea id="recognizedText" rows="6" placeholder="Las palabras reconocidas aparecerán aquí..." readonly></textarea></div>
+            <div class="button-row"><button class="btn-secondary" id="copyTextBtn">Copiar texto</button><button class="btn-secondary" id="clearTextBtn">Limpiar</button></div>
+            <p class="feedback" id="recognitionStatus" aria-live="polite">Esperando para iniciar.</p>
+          </div>
+          <div class="info-strip"><strong>Compatibilidad</strong><p>El reconocimiento de voz no está disponible en todos los navegadores. Se recomienda probar en una versión actualizada de Chrome o Edge. Puede requerir conexión a Internet.</p></div>
+        </section>
+
+        <section class="page" id="page-acerca">
+          <div class="page-intro"><span class="eyebrow">INFORMACIÓN GENERAL</span><h1>Acerca del <span>proyecto</span></h1><p>Conoce el propósito y las tecnologías de Tarea Asistente 1.0.</p></div>
+          <div class="workspace-card"><h2>¿Qué es Tarea Asistente 1.0?</h2><p>Es una aplicación web progresiva que reúne cinco herramientas interactivas en una sola interfaz. Su propósito es demostrar el uso de distintas capacidades disponibles en los navegadores modernos mediante tecnologías web.</p><div class="about-grid"><div><span>01</span><strong>Accesibilidad</strong><p>Interfaz clara y adaptable a distintos tamaños de pantalla.</p></div><div><span>02</span><strong>Interactividad</strong><p>Controles para utilizar cada herramienta de forma sencilla.</p></div><div><span>03</span><strong>Experiencia PWA</strong><p>Instalación compatible y almacenamiento de recursos básicos en caché.</p></div></div><h3>Tecnologías utilizadas</h3><div class="tech-tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Web Speech API</span><span>MediaDevices API</span><span>Service Worker</span><span>Web App Manifest</span></div></div>
+        </section>
+
+        <footer class="footer"><span>© 2026 · TAREA ASISTENTE 1.0</span><span>Desarrollado con HTML, CSS y JavaScript</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
