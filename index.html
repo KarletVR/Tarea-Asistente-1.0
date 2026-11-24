@@ -25,7 +25,6 @@
         <a href="#qr" class="nav-link" data-page="qr"><span>▦</span> Generador QR</a>
         <a href="#camara" class="nav-link" data-page="camara"><span>▣</span> Cámara</a>
         <a href="#reconocimiento" class="nav-link" data-page="reconocimiento"><span>🎙</span> Reconocimiento de voz</a>
-        <a href="#llamada" class="nav-link" data-page="llamada"><span>☎</span> Llamada telefónica</a>
         <a href="#acerca" class="nav-link" data-page="acerca"><span>ⓘ</span> Acerca del proyecto</a>
       </nav>
       <div class="sidebar-bottom">
@@ -47,7 +46,7 @@
             <div class="hero-copy">
               <span class="eyebrow"><i></i> TU ESPACIO DIGITAL</span>
               <h1>Bienvenida a<br><span>Asistente 1.0</span></h1>
-              <p>Un conjunto de herramientas prácticas para convertir texto en voz, reproducir audio, crear códigos QR, utilizar la cámara, reconocer palabras habladas e iniciar llamadas telefónicas.</p>
+              <p>Un conjunto de herramientas prácticas para convertir texto en voz, reproducir audio, crear códigos QR, utilizar la cámara y reconocer palabras habladas.</p>
               <a class="primary-btn" href="#herramientas">Explorar herramientas <span>→</span></a>
             </div>
             <div class="hero-art" aria-hidden="true">
@@ -56,14 +55,13 @@
               <div class="orbit-label label-one">VOICE</div><div class="orbit-label label-two">MEDIA</div><div class="orbit-label label-three">SMART</div>
             </div>
           </div>
-          <div class="section-heading" id="herramientas"><div><span class="eyebrow">CENTRO DE HERRAMIENTAS</span><h2>¿Qué necesitas hacer?</h2></div><span class="muted">6 módulos disponibles</span></div>
+          <div class="section-heading" id="herramientas"><div><span class="eyebrow">CENTRO DE HERRAMIENTAS</span><h2>¿Qué necesitas hacer?</h2></div><span class="muted">5 módulos disponibles</span></div>
           <div class="tool-grid">
             <a class="tool-card" href="#texto-voz"><span class="tool-icon">◖</span><span class="tool-number">01 / VOZ</span><h3>Texto a voz</h3><p>Escucha cualquier texto con la voz disponible en tu navegador.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
             <a class="tool-card" href="#sonido"><span class="tool-icon">♫</span><span class="tool-number">02 / AUDIO</span><h3>Reproducción de sonido</h3><p>Selecciona un archivo de audio y controla su reproducción.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
             <a class="tool-card" href="#qr"><span class="tool-icon">▦</span><span class="tool-number">03 / QR</span><h3>Generador QR</h3><p>Convierte un texto o enlace en un código QR descargable.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
             <a class="tool-card" href="#camara"><span class="tool-icon">▣</span><span class="tool-number">04 / CÁMARA</span><h3>Cámara</h3><p>Visualiza la cámara y captura fotografías desde el dispositivo.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
             <a class="tool-card" href="#reconocimiento"><span class="tool-icon">🎙</span><span class="tool-number">05 / VOZ A TEXTO</span><h3>Reconocimiento de voz</h3><p>Habla y observa cómo el navegador convierte tu voz en texto.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
-            <a class="tool-card" href="#llamada"><span class="tool-icon">☎</span><span class="tool-number">06 / COMUNICACIÓN</span><h3>Llamada telefónica</h3><p>Prepara una llamada utilizando la aplicación telefónica de tu dispositivo.</p><span class="card-arrow">Abrir herramienta ↗</span></a>
           </div>
           <div class="notice"><span>✦</span><div><strong>Consejo</strong><p>Para utilizar la cámara y el micrófono, abre esta PWA desde HTTPS o desde localhost y concede los permisos solicitados.</p></div></div>
         </section>
@@ -137,25 +135,9 @@
           <div class="info-strip"><strong>Compatibilidad</strong><p>El reconocimiento de voz no está disponible en todos los navegadores. Se recomienda probar en una versión actualizada de Chrome o Edge. Puede requerir conexión a Internet.</p></div>
         </section>
 
-        <section class="page" id="page-llamada">
-          <div class="page-intro"><span class="eyebrow">MÓDULO 06 · ENLACE TELEFÓNICO</span><h1>Llamada <span>telefónica</span></h1><p>Escribe un número y abre la aplicación de llamadas de tu dispositivo para comunicarte.</p></div>
-          <div class="workspace-card call-workspace">
-            <div class="call-visual"><span>☎</span></div>
-            <label for="phoneNumber">Número telefónico</label>
-            <input class="phone-input" type="tel" id="phoneNumber" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="Ej. 2221234567" aria-describedby="phoneHelp">
-            <p class="muted" id="phoneHelp">Puedes escribir el número con código de país, espacios o guiones.</p>
-            <div class="button-row centered-row">
-              <a class="btn-primary call-button" id="callLink" href="#" aria-disabled="true">☎ Preparar llamada</a>
-              <button class="btn-secondary" id="clearPhoneBtn" type="button">Limpiar</button>
-            </div>
-            <p class="feedback" id="phoneStatus" aria-live="polite">Escribe un número válido para continuar.</p>
-          </div>
-          <div class="info-strip"><strong>¿Cómo funciona?</strong><p>Este módulo utiliza un enlace telefónico (tel:). En un celular compatible abrirá la aplicación de teléfono con el número preparado. Debes revisar el número y confirmar la llamada desde tu dispositivo. La PWA no realiza llamadas por sí sola ni sustituye el servicio telefónico.</p></div>
-        </section>
-
         <section class="page" id="page-acerca">
           <div class="page-intro"><span class="eyebrow">INFORMACIÓN GENERAL</span><h1>Acerca del <span>proyecto</span></h1><p>Conoce el propósito y las tecnologías de Tarea Asistente 1.0.</p></div>
-          <div class="workspace-card"><h2>¿Qué es Tarea Asistente 1.0?</h2><p>Es una aplicación web progresiva que reúne seis herramientas interactivas en una sola interfaz. Su propósito es demostrar el uso de distintas capacidades disponibles en los navegadores modernos mediante tecnologías web.</p><div class="about-grid"><div><span>01</span><strong>Accesibilidad</strong><p>Interfaz clara y adaptable a distintos tamaños de pantalla.</p></div><div><span>02</span><strong>Interactividad</strong><p>Controles para utilizar cada herramienta de forma sencilla.</p></div><div><span>03</span><strong>Experiencia PWA</strong><p>Instalación compatible y almacenamiento de recursos básicos en caché.</p></div></div><h3>Tecnologías utilizadas</h3><div class="tech-tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Web Speech API</span><span>MediaDevices API</span><span>Service Worker</span><span>Web App Manifest</span></div></div>
+          <div class="workspace-card"><h2>¿Qué es Tarea Asistente 1.0?</h2><p>Es una aplicación web progresiva que reúne cinco herramientas interactivas en una sola interfaz. Su propósito es demostrar el uso de distintas capacidades disponibles en los navegadores modernos mediante tecnologías web.</p><div class="about-grid"><div><span>01</span><strong>Accesibilidad</strong><p>Interfaz clara y adaptable a distintos tamaños de pantalla.</p></div><div><span>02</span><strong>Interactividad</strong><p>Controles para utilizar cada herramienta de forma sencilla.</p></div><div><span>03</span><strong>Experiencia PWA</strong><p>Instalación compatible y almacenamiento de recursos básicos en caché.</p></div></div><h3>Tecnologías utilizadas</h3><div class="tech-tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Web Speech API</span><span>MediaDevices API</span><span>Service Worker</span><span>Web App Manifest</span></div></div>
         </section>
 
         <footer class="footer"><span>© 2026 · TAREA ASISTENTE 1.0</span><span>Desarrollado con HTML, CSS y JavaScript</span></footer>
