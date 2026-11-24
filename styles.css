@@ -4,3 +4,15 @@
 @media(max-width:1050px){.hero-art{right:3%;transform:scale(.8)}.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.25s;box-shadow:15px 0 35px #0008}.sidebar.open{transform:translateX(0)}.main-area{margin-left:0;width:100%}.menu-toggle{display:block}.topbar{padding:0 18px}.content{padding:24px 18px}.hero{padding:32px 25px;min-height:300px}.hero-art{opacity:.18;right:-70px;transform:scale(.85)}.hero-copy{max-width:100%}.tool-grid{grid-template-columns:1fr 1fr}.form-row{grid-template-columns:1fr}.qr-layout{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr}.audio-panel{flex-wrap:wrap}.audio-panel audio{max-width:100%}.footer{gap:12px;flex-direction:column}.page-intro h1{font-size:34px}}
 @media(max-width:440px){.tool-grid{grid-template-columns:1fr}.hero h1{font-size:36px}.section-heading{align-items:start;gap:10px;flex-direction:column}.workspace-card{padding:17px}.topbar-right{font-size:0}.topbar-right .avatar{font-size:11px}}
+
+/* MÓDULO 06: LLAMADA TELEFÓNICA */
+.phone-input{width:100%;border:1px solid #41344d;background:#120f18;color:#eee5f6;border-radius:10px;padding:15px;font:16px 'DM Sans';outline:none;letter-spacing:.5px}
+.phone-input:focus{border-color:#a16be0;box-shadow:0 0 0 3px #a16be022}
+.call-workspace{max-width:680px;margin:0 auto;text-align:center}
+.call-workspace>label{display:block;text-align:left;color:#e6dced;font-size:12px;font-weight:600;margin:18px 0 9px}
+.call-visual{width:88px;height:88px;border-radius:50%;margin:4px auto 18px;background:linear-gradient(145deg,#a76af6,#6330a8);display:grid;place-items:center;box-shadow:0 0 0 10px #8d52c522}
+.call-visual span{font-size:38px;color:white}
+.call-workspace .muted{text-align:left;margin:8px 0}
+.call-workspace .centered-row{margin:22px 0 12px}
+.call-button{margin:0}
+.call-disabled{opacity:.45;cursor:not-allowed;pointer-events:auto}

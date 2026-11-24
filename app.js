@@ -7,7 +7,7 @@ let qrImageUrl = "";
 
 const pageTitles = {
   inicio: "Inicio", "texto-voz": "Texto a voz", sonido: "Reproducción de sonido",
-  qr: "Generador QR", camara: "Cámara", reconocimiento: "Reconocimiento de voz",
+  qr: "Generador QR", camara: "Cámara", reconocimiento: "Reconocimiento de voz", llamada: "Llamada telefónica",
   acerca: "Acerca del proyecto"
 };
 
@@ -269,4 +269,36 @@ window.addEventListener("beforeunload", () => {
   stopCamera();
   if ("speechSynthesis" in window) speechSynthesis.cancel();
   if (currentAudioUrl) URL.revokeObjectURL(currentAudioUrl);
+});
+
+/* LLAMADA TELEFÓNICA: abre el marcador del dispositivo */
+const phoneInput = $("phoneNumber");
+const callLink = $("callLink");
+function updatePhoneLink() {
+  const raw = phoneInput.value.trim();
+  // Permite dígitos, espacios, +, paréntesis y guiones; exige entre 7 y 15 dígitos.
+  const digits = raw.replace(/\\D/g, "");
+  const validCharacters = /^[0-9+()\\s-]+$/.test(raw);
+  const valid = validCharacters && digits.length >= 7 && digits.length <= 15;
+  callLink.setAttribute("aria-disabled", String(!valid));
+  callLink.classList.toggle("call-disabled", !valid);
+  callLink.href = valid ? `tel:${raw.replace(/[^0-9+]/g, "")}` : "#";
+  $("phoneStatus").textContent = valid
+    ? "Número listo. Al continuar, se abrirá la aplicación telefónica."
+    : "Escribe un número válido de entre 7 y 15 dígitos.";
+}
+phoneInput.addEventListener("input", updatePhoneLink);
+callLink.addEventListener("click", event => {
+  if (callLink.getAttribute("aria-disabled") === "true") {
+    event.preventDefault();
+    $("phoneStatus").textContent = "Primero escribe un número telefónico válido.";
+    phoneInput.focus();
+    return;
+  }
+  $("phoneStatus").textContent = "Se está abriendo la aplicación telefónica. Revisa el número y confirma la llamada.";
+});
+$("clearPhoneBtn").addEventListener("click", () => {
+  phoneInput.value = "";
+  updatePhoneLink();
+  phoneInput.focus();
 });

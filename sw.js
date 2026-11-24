@@ -1,4 +1,4 @@
-const CACHE_NAME = "tarea-asistente-v1";
+const CACHE_NAME = "tarea-asistente-v2";
 const APP_FILES = [
   "./", "./index.html", "./styles.css", "./app.js", "./manifest.json",
   "./assets/icon.svg", "./assets/icon-192.png", "./assets/icon-512.png"
